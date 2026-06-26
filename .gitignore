@@ -8,8 +8,8 @@ node_modules/
 __pycache__/
 
 # ─── Build output ───
-frontend/dist/
-frontend/.vite/
+dist/
+.vite/
 
 # ─── Database files (contain real data) ───
 backend/db/*.db
