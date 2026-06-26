@@ -41,11 +41,14 @@ async function start() {
   app.use('/api/dashboard', require('./routes/dashboard'));
 
   app.get('/api/health', (req, res) => {
+    const hasGemini = !!(process.env.GEMINI_API_KEY && !process.env.GEMINI_API_KEY.startsWith('AIzaSyxxxxxxx'));
+    const hasOpenAI = !!(process.env.OPENAI_API_KEY && !process.env.OPENAI_API_KEY.startsWith('sk-xxxxxxx'));
     res.json({
       success: true,
       message: 'Manivtha Car Assistant API is running!',
       timestamp: new Date().toISOString(),
-      geminiConfigured: !!(process.env.GEMINI_API_KEY && !process.env.GEMINI_API_KEY.startsWith('AIzaSyxxxxxxx'))
+      aiConfigured: hasGemini || hasOpenAI,
+      provider: hasOpenAI ? 'OpenAI (GPT-4o-mini)' : hasGemini ? 'Gemini (1.5-Flash)' : 'None (Fallback)'
     });
   });
 
@@ -62,8 +65,9 @@ async function start() {
     console.log(`\n🚗 Manivtha Car Assistant API`);
     console.log(`   Running on: http://localhost:${PORT}`);
     console.log(`   Health:     http://localhost:${PORT}/api/health`);
-    const hasKey = process.env.GEMINI_API_KEY && !process.env.GEMINI_API_KEY.startsWith('AIzaSyxxxxxxx');
-    console.log(`   Gemini AI:  ${hasKey ? '✅ Configured' : '⚠️  Not configured (using rule-based fallback)'}`);
+    const hasGemini = process.env.GEMINI_API_KEY && !process.env.GEMINI_API_KEY.startsWith('AIzaSyxxxxxxx');
+    const hasOpenAI = process.env.OPENAI_API_KEY && !process.env.OPENAI_API_KEY.startsWith('sk-xxxxxxx');
+    console.log(`   AI Engine:  ${hasOpenAI ? '✅ OpenAI (GPT-4o-mini)' : hasGemini ? '✅ Gemini (1.5-Flash)' : '⚠️  Not configured (using rule-based fallback)'}`);
     console.log('');
   });
 }

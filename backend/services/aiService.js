@@ -114,6 +114,37 @@ function buildFallbackResponse(passengers, luggage, budgetMax, comfort) {
 // ─────────────────────────────────────────────
 async function getAIRecommendation(formData) {
   const apiKey = process.env.GEMINI_API_KEY;
+  const openaiApiKey = process.env.OPENAI_API_KEY;
+
+  // Try OpenAI first if configured
+  if (openaiApiKey && !openaiApiKey.startsWith('sk-xxxxxxx')) {
+    try {
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${openaiApiKey}`
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [
+            { role: 'system', content: SYSTEM_PROMPT },
+            { role: 'user', content: buildUserPrompt(formData) }
+          ],
+          response_format: { type: 'json_object' }
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error?.message || 'OpenAI API error');
+      }
+      const text = data.choices[0].message.content;
+      return JSON.parse(text.trim());
+    } catch (err) {
+      console.error('[AI] OpenAI recommendation error, falling back:', err.message);
+      // Fall through to Gemini or rule-based fallback
+    }
+  }
 
   if (!apiKey || apiKey.startsWith('AIzaSyxxxxxxx')) {
     console.warn('[AI] No valid Gemini API key — using rule-based fallback.');
@@ -148,9 +179,44 @@ async function getAIRecommendation(formData) {
 // ─────────────────────────────────────────────
 async function getChatbotReply(conversationHistory, userMessage) {
   const apiKey = process.env.GEMINI_API_KEY;
+  const openaiApiKey = process.env.OPENAI_API_KEY;
+
+  // Try OpenAI first if configured
+  if (openaiApiKey && !openaiApiKey.startsWith('sk-xxxxxxx')) {
+    try {
+      const messages = [
+        { role: 'system', content: CHAT_SYSTEM_PROMPT },
+        ...conversationHistory.map(msg => ({
+          role: msg.role === 'user' ? 'user' : 'assistant',
+          content: msg.content
+        })),
+        { role: 'user', content: userMessage }
+      ];
+
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${openaiApiKey}`
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages
+        })
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error?.message || 'OpenAI API error');
+      }
+      return data.choices[0].message.content;
+    } catch (err) {
+      console.error('[AI] OpenAI chat error, falling back:', err.message);
+      // Fall through to Gemini or rule-based fallback
+    }
+  }
 
   if (!apiKey || apiKey.startsWith('AIzaSyxxxxxxx')) {
-    // Rule-based conversational state machine when Gemini API key is not set
+    // Rule-based conversational state machine when Gemini/OpenAI API keys are not set
     const userMessages = conversationHistory.filter(m => m.role === 'user').map(m => m.content);
     userMessages.push(userMessage);
 
