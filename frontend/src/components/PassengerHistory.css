@@ -1,0 +1,193 @@
+/* PassengerHistory — Racing theme */
+.passenger-history-page {
+  min-height: calc(100vh - 58px);
+  padding: 32px 0;
+}
+
+/* Header with logout button */
+.history-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+/* ── Notification Banner ── */
+.notification-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--color-success);
+  border: 1px solid var(--color-success-border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  animation: fadeSlideDown 0.3s ease;
+}
+
+.notification-icon {
+  font-size: 24px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.notification-body {
+  flex: 1;
+}
+
+.notification-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-success-text);
+  margin-bottom: 6px;
+}
+
+.notification-text {
+  font-size: 13px;
+  color: var(--color-text-2);
+  line-height: 1.5;
+}
+
+.notification-close {
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  transition: color var(--transition-fast);
+  flex-shrink: 0;
+}
+.notification-close:hover {
+  color: var(--color-text);
+}
+
+/* ── History List ── */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.history-item-card {
+  cursor: default;
+}
+
+.history-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.enquiry-id-text {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.enquiry-date {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* ── History Item Body ── */
+.history-item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.history-spec-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 20px;
+  font-size: 13.5px;
+  color: var(--color-text-2);
+}
+
+.history-spec-grid strong {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Assigned car in history */
+.history-assigned-car {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.assigned-car-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.assigned-car-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.assigned-car-price {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* AI reason */
+.history-ai-reason {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.02);
+  border-left: 2px solid var(--color-accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.history-ai-reason p {
+  margin-top: 4px;
+  color: var(--color-text-2);
+}
+
+/* Actions */
+.history-item-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+  margin-top: 4px;
+}
+
+.cancel-erase-btn {
+  color: var(--color-error-text) !important;
+  border-color: var(--color-error-border) !important;
+}
+.cancel-erase-btn:hover {
+  background: var(--color-error) !important;
+}
+
+@media (max-width: 600px) {
+  .history-spec-grid {
+    grid-template-columns: 1fr;
+  }
+}

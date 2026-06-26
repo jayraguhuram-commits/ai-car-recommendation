@@ -1,0 +1,63 @@
+/* ══════════════════════════════════════════════
+   DYNAMIC HEADLIGHT SYSTEM (Lamborghini Style)
+   ══════════════════════════════════════════════ */
+
+.headlight-container {
+  /* Positioned absolutely within a relative parent (like the hero section) */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Center it precisely */
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 1000px;
+  height: 250px;
+  pointer-events: none; /* Let clicks pass through */
+  z-index: 0; /* Sit behind main content but visible */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.headlight-eyes {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Hardware acceleration for buttery smooth performance */
+  will-change: filter, opacity, transform;
+  
+  /* 
+    Mouse-tracking offset 
+    var(--mouse-x) and var(--mouse-y) are injected via JS (-1 to 1) 
+  */
+  transform: translate(
+    calc(var(--mouse-x, 0) * 15px),
+    calc(var(--mouse-y, 0) * 15px)
+  );
+  
+  /* The transform transition helps smooth out mouse movements if they are jittery */
+  transition: transform 0.1s ease-out;
+}
+
+.headlight-svg {
+  width: 100%;
+  height: 100%;
+  /* Optional: Ensure it doesn't get squished weirdly */
+  object-fit: contain;
+}
+
+.led-path {
+  /* Use sharp stroke joins for the angular Lamborghini look */
+  stroke-linejoin: miter;
+  stroke-miterlimit: 4;
+  /* Ensure hardware acceleration for the path's colors */
+  will-change: stroke, fill;
+}
+
+/* Subtle inner glow to simulate actual LED tubes */
+[data-theme="dark"] .led-path {
+  /* Adding a tight drop-shadow to simulate the tube's inner luminance */
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.9));
+}

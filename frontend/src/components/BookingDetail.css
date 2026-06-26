@@ -1,0 +1,218 @@
+/* BookingDetail — Racing theme */
+.booking-detail-page {
+  min-height: calc(100vh - 58px);
+  padding: 32px 0;
+}
+
+/* Back link */
+.back-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+  margin-bottom: 20px;
+  display: inline-block;
+}
+.back-link:hover {
+  color: var(--color-text);
+}
+
+/* ── Detail Header Card ── */
+.detail-header-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.detail-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-id {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.detail-status {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* ── Detail Grid ── */
+.detail-grid {
+  align-items: start;
+}
+
+.detail-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Detail List ── */
+.detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-item {
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.detail-item span:first-child {
+  font-weight: 700;
+  color: var(--color-text-muted);
+  min-width: 110px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.detail-item.flex-col {
+  flex-direction: column;
+}
+
+/* ── Assigned Car Info ── */
+.assigned-car-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.assigned-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.assigned-name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.assigned-specs {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.assigned-price {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-top: 4px;
+}
+
+/* ── AI Reason Card ── */
+.ai-reason-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-2);
+}
+
+/* ── History Timeline ── */
+.history-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.history-item {
+  display: flex;
+  gap: 12px;
+  padding-bottom: 18px;
+  position: relative;
+}
+
+.history-item::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 16px;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-border);
+}
+.history-item:last-child {
+  padding-bottom: 0;
+}
+.history-item:last-child::before {
+  display: none;
+}
+
+.history-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+  margin-top: 4px;
+  z-index: 1;
+}
+
+.history-content {
+  flex: 1;
+}
+
+.history-action {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.history-meta {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.history-notes {
+  font-size: 13px;
+  color: var(--color-text-2);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .detail-header-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .detail-actions {
+    width: 100%;
+  }
+  .detail-actions .btn-primary,
+  .detail-actions .btn-secondary {
+    flex: 1;
+  }
+}
